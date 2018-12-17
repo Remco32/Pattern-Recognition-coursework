@@ -1,4 +1,4 @@
-c = imread('X:\My Desktop\PatRec\Cameraman.tiff'); 
+c = imread('cameraman.tif'); 
 imagesc(c)
 
 edges = edge(c, 'canny');
@@ -28,10 +28,10 @@ xlabel('?(degrees)')
 ylabel('?')
 drawnow
 %%
-c = imread('X:\My Desktop\PatRec\Cameraman.tiff')
+c = imread('cameraman.tif'); 
 edges = edge(c, 'canny');
 [H,T,R]= hough(edges)
-P = houghpeaks(H, 1) %set n strongest lines à gusto
+P = houghpeaks(H, 1) %set n strongest lines ï¿½ gusto
 lines = houghlines(c,T,R,P,'FillGap',20,'MinLength',100)
 imagesc(c)
 hold on
@@ -40,7 +40,7 @@ for t = 1:max(size(theta))
 myhoughline(c,rho(t),theta(t))
 drawnow
 end
-title('s2568020')
+title('s2533081')
 
 
 
