@@ -13,10 +13,10 @@ H = zeros(round(2*rho_max),180); %size H from -diagonal  to diagonal and -90 and
 % Look for white pixels on the edgemap
 for t = 1:size(edgemap,1)
     for s = 1:size(edgemap,2)
-    if edgemap(t) == 1
+    if edgemap(t,s) == 1
         %%% Function from slides heredfg
         for theta = theta_min:theta_max
-            rho = round(t * cos(theta) + s * sin(theta));
+            rho = floor(t * cos(theta) + s * sin(theta));
             H(theta, rho) = H(theta,rho) + 1;
         end
         % Find local maxima in the accumulator
