@@ -3,5 +3,7 @@ c = imread('cameraman.tif');
 
 
 edges = edge(c, 'canny');
-hc = myhough(edges);
+[hc,rho] = myhough(edges);
+%[hc,rho] = hough(edges);
 imagesc(hc)
+%plot(rho) 
