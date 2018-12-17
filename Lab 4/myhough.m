@@ -10,7 +10,7 @@ end
 % Quantize the parameter space (min and max values for rho and theta)
 
 % Initialize accumulator on the matrix representation of the input to zero
-
+favouritecolor = [25,47,256]
 % Loop through black (and/or?) white points in the image
 %%% Function from slides here
 
