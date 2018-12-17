@@ -1,27 +1,38 @@
 % myHough function
-function [H]= myhough(edgemap)
+function [H,rholist]= myhough(edgemap)
 
 % Quantize the parameter space (min and max values for rho and theta)
-theta_min = -90 + 91; %degrees; added 90 to avoid negative index values in matrix
-theta_max = 90 + 91;
-rho_max = hypot(size(edgemap,1),size(edgemap,2));
-%rho_min = 1;
+theta_min = -90; %degrees; added 90 to avoid negative index values in matrix
+theta_max = 90;
+rho_max = abs(hypot(size(edgemap,1),size(edgemap,2)));
+rho_min = 1;
 
 % Initialize accumulator on the matrix representation of the input to zero
-H = zeros(round(2*rho_max),180); %size H from -diagonal  to diagonal and -90 and 90
-
+H = zeros(round(2*rho_max),181); %size H from -diagonal  to diagonal and -90 and 90
+rholist = []
 % Look for white pixels on the edgemap
 for t = 1:size(edgemap,1)
     for s = 1:size(edgemap,2)
-    if edgemap(t) == 1
-        %%% Function from slides heredfg
-        for theta = theta_min:theta_max
-            rho = round(t * cos(theta) + s * sin(theta));
-            H(theta, rho) = H(theta,rho) + 1;
+        if edgemap(s,t) == 1
+            %%% Function from slides heredfg
+            for theta = theta_min:theta_max
+                rho = floor((t*cos(theta)+(s*sin(theta))));
+                rholist = horzcat(rholist,rho);
+                 
+               
+                
+                
+               
+                if rho == 0
+                     rho = 1;
+                 end
+                H(rho+362,theta+91) = H(rho+362,theta+91) + 1;
+               
+            end
+            
+            end
         end
-        % Find local maxima in the accumulator
-        %%% See formula slides
-    end
-    end
 end
-H
+    rholist
+end
+
