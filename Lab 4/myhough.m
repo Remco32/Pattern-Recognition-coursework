@@ -13,34 +13,21 @@ rholist = []
 % Look for white pixels on the edgemap
 for t = 1:size(edgemap,1)
     for s = 1:size(edgemap,2)
-<<<<<<< HEAD
+     
         if edgemap(s,t) == 1
             %%% Function from slides heredfg
             for theta = theta_min:theta_max
                 rho = floor((t*cos(theta)+(s*sin(theta))));
-                rholist = horzcat(rholist,rho);
-                 
-               
-                
-                
-               
+           
                 if rho == 0
-                     rho = 1;
-                 end
+                    rho = 1;
+                end
                 H(rho+362,theta+91) = H(rho+362,theta+91) + 1;
-               
+                
             end
             
-            end
-=======
-    if edgemap(t,s) == 1
-        %%% Function from slides heredfg
-        for theta = theta_min:theta_max
-            rho = floor(t * cos(theta) + s * sin(theta));
-            H(theta, rho) = H(theta,rho) + 1;
->>>>>>> d2bd714d5b6277805e05a6d2458d2bee4b8d9e84
         end
-end
-    rholist
-end
 
+    end
+            
+end
