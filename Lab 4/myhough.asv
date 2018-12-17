@@ -1,0 +1,29 @@
+% myHough function
+function [H,theta,rho]= myhough(edgemap)
+diag = hypot(size(edgemap,1),size(edgematp,2))
+% Quantize the parameter space (min and max values for rho and theta
+H = zeros(2*diag,180);%size H from -diagonal  to diagonal and -90 and 90
+for t = 1:length(edgemap)% Loop through black (and/or?) white points in the image
+    if edgemap(t) == 1
+    
+    theta 
+    rho = x*cos(theta) + y*sin(theta)
+    
+    H(t)
+    %Point in image space à sinusoid curve segment in polar Hough space
+    end
+    
+    
+
+
+
+
+
+
+end
+
+%%
+
+% for H
+
+
