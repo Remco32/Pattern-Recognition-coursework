@@ -1,30 +1,18 @@
 c = imread('X:\My Documents\GitHub\Pattern-Recognition-coursework\Lab 4\dogGrayRipples.png');
+cf=fft2(c);
+cf2 = abs(cf);
 
-Fs = 1000;            % Sampling frequency                    
-T = 1/Fs;             % Sampling period       
-L = length(c);             % Length of signal
-t = (0:L-1)*T;        % Time vector
+subplot(2,2,1)
+plot(cf2)
 
-cf=fft2(c)
-cf1 = fftshift(cf)
-cf2 = abs(cf1)
+cf3 = cf;
+cf3(247:280,:)=0
+cf3(27:40,:)=0
+subplot(2,2,2)
+plot(abs(cf3))
 
-plot(cf)
+subplot(2,2,3)
+imshow(c)
+subplot(2,2,4)
 
-
-
-
-
-%%
-
-
-d = designfilt('highpassfir', 'PassbandFrequency', 0.25,...
-             'StopbandFrequency', 170, 'PassbandRipple', 0.5, ...
-             'StopbandAttenuation', 65, 'DesignMethod', 'kaiserwin');
-d2 = designfilt('lowpassfir', 'PassbandFrequency', 0.25,...
-             'StopbandFrequency', 130, 'PassbandRipple', 0.5, ...
-             'StopbandAttenuation', 65, 'DesignMethod', 'kaiserwin');
-
-butternut = filtfilt(d,c);
-buttnut= filtfilt(d2,butternut);
-buttnut
+imshow(uint8(abs(ifft2(cf3))))
