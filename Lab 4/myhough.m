@@ -2,8 +2,8 @@
 function [H]= myhough(edgemap)
 
 % Quantize the parameter space (min and max values for rho and theta)
-theta_min = -90; %degrees; added 90 to avoid negative index values in matrix
-theta_max = 90;
+theta_min = -90+91; %degrees; added 90 to avoid negative index values in matrix
+theta_max = 90+91;
 rho_max = abs(hypot(size(edgemap,1),size(edgemap,2)));
 rho_min = 1;
 
@@ -22,7 +22,7 @@ for t = 1:size(edgemap,1)
                 if rho == 0
                     rho = 1;
                 end
-                H(rho+362,theta+91) = H(rho+362,theta+91) + 1;
+                H(rho+362,theta) = H(rho+362,theta) + 1;
                 
             end
             
