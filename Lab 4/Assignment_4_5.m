@@ -1,8 +1,7 @@
 [y,Fs]= audioread('X:\My Documents\GitHub\Pattern-Recognition-coursework\Lab 4\corrupted_voice.wav');
 y1 = fft(y);
+info =audioinfo('X:\My Documents\GitHub\Pattern-Recognition-coursework\Lab 4\corrupted_voice.wav')
 
-
-                   
 T = 1/Fs;             % Sampling period       
 t = (0:length(y)-1)*T;        % Time vector
 
@@ -10,29 +9,26 @@ P2 = abs(y1/length(y)); %double-sided spec
 P1 = P2(1:length(y)/2+1);
 P1(2:end-1) = 2*P1(2:end-1); %single sided spectrum with proper length
 
-f = Fs*(0:(length(y)/2))/length(y)
+f = Fs*(0:(length(y)/2))/length(y)%
 plot(f,P1) 
 title('Single-Sided Amplitude Spectrum of X(t)')
 xlabel('f (Hz)')
 ylabel('|P1(f)|') % noise peaks at 100 and 6000 Hz
 
-%% -> very experimental from here on
-%[B,A] = butter(8,[5900,6100],'stop') 
-%Y = filter(B,A,f)
+%% -> worcks
+d = designfilt('bandstopiir','FilterOrder',2, ...
+               'HalfPowerFrequency1',99,'HalfPowerFrequency2',101, ...
+               'DesignMethod','butter','SampleRate',Fs);
+d2 = designfilt('bandstopiir','FilterOrder',20, ...
+               'HalfPowerFrequency1',5500,'HalfPowerFrequency2',6500, ...
+               'DesignMethod','butter','SampleRate',Fs);
 
-f2 = bandstop(f,[.5800 .6200],Fs,'ImpulseResponse','iir','Steepness',0.95);
-f3 = bandstop(f2,[.0080 .0120],Fs,'ImpulseResponse','iir','Steepness',0.95);
+butternut = filtfilt(d,y);
+buttnut= filtfilt(d2,butternut);
+audiowrite('voice_butternut.wav',buttnut,Fs)
 
-subplot(3,1,1)
-plot(f,P1,'Color','r')
-hold on
-subplot(3,1,2)
-plot(f2,P1,'Color','g')
-subplot(3,1,3)
-plot(f3,P1,'Color','b')
-ax=gca
-%xlim([0 8000])
+%freqz(d2)
 
-
-ifft(f3)
-
+t = (0:length(y)-1)/Fs;
+%plot(t,y,t,butternut)f
+%last version
