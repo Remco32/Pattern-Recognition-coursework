@@ -62,8 +62,8 @@ plot(xArray,yArray)
 
 
 %%
-lines = houghlines(I,T,R,P,'FillGap',20,'MinLength',100)
-imshow(I)
+lines = houghlines(c,T,R,P,'FillGap',20,'MinLength',100)
+imagesc(I)
 hold on
 theta = table2array(table(lines.theta)); rho = table2array(table(lines.rho));
 for t = 1:max(size(theta))
