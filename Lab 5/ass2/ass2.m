@@ -13,28 +13,15 @@ dataSet = vertcat(matA,matB);
 
 %loop k times, creating k splits of the dataset
 k = 10;
-for i = 1:k
-    %%Randomly (according to the slides, at least) break the dataset into k partitions
-    
+for i = 1:k  
     %Decide a point in the set to split:
-    splitLocation = randi([1 length(dataSet)]);
+    sizeOfTestSet = 20;
+    splitLocation = randi([1+sizeOfTestSet length(dataSet)-sizeOfTestSet]);
     
     %sizes should be approximately the same, so let's take 5% below and
     %over the point of the split
     lowerBound = splitLocation - (0.05 * length(dataSet)); 
     upperBound = splitLocation + (0.05 * length(dataSet)) - 1; %account for off-by-one error
-    
-    %account for bound-errors (i.e. getting point at index -9)
-    %...through brute force (setting bounds to their respective limits
-    %where needed)
-    if lowerBound < 1
-        lowerBound = 1;
-        upperBound = 0.1 * length(dataSet); %times .1 since the bound is in one direction
-    end
-    if upperBound > length(dataSet)
-        upperBound = length(dataSet);
-        lowerBound = length(dataSet) - (0.1 * length(dataSet));
-    end
     
     %Seperate the data
     testSet = dataSet(lowerBound:upperBound, :);
@@ -43,7 +30,6 @@ for i = 1:k
     %%Train on the biggest remaining set
 
     %%Validate on the smaller set
-    
 end
 
 
