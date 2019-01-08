@@ -3,9 +3,11 @@
 
 %%
 close all %Close all windows
-cd 'C:\Users\hschu\Documents\GitHub\Pattern-Recognition-coursework\Lab 5\';
-load('data_lvq_A.mat') %matA
-load('data_lvq_B.mat') %matB
+%cd 'C:\Users\hschu\Documents\GitHub\Pattern-Recognition-coursework\Lab 5\';
+%load('data_lvq_A.mat') %matA
+%load('data_lvq_B.mat') %matB
+load('..\data_lvq_A.mat') %matA
+load('..\data_lvq_B.mat') %matB
 
 %%
 %Scatterplot
@@ -21,7 +23,7 @@ legend('Class A','Class B')
 %%
 %LVQ1 training
 %FIRST OF ALL, THIS IS HOW NORMALLY PEOPLE WOULD IMPLEMENT IT IN MATLAB
-net = lvqnet(4,0.01,'learnlv1') %4 neurons in the first competative layer, LR at 0.01, weight learning function set to LVQ1
+net = lvqnet(4,0.01,'learnlv1'); %4 neurons in the first competative layer, LR at 0.01, weight learning function set to LVQ1
 P = vertcat(matA,matB);
 T = [zeros(length(matA),1),ones(length(matA),1);ones(length(matB),1),zeros(length(matB),1)];
 net = configure(net,P',T');
